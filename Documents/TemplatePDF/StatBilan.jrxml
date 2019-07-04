@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StatBilan" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a24e87f1-e453-4dab-a662-9261b15ba68d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="titre" class="java.lang.String">
+		<defaultValueExpression><![CDATA["FKC"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="slogan" class="java.lang.String">
+		<defaultValueExpression><![CDATA["The best is comming"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="varMois" class="java.lang.String">
+		<defaultValueExpression><![CDATA[7]]></defaultValueExpression>
+	</parameter>
+	<parameter name="varAnnee" class="java.lang.String">
+		<defaultValueExpression><![CDATA[2016]]></defaultValueExpression>
+	</parameter>
+	<parameter name="periode" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     $P{titre} AS titre,
+     $P{slogan} AS slogan,
+     $P{periode} AS periode,
+     sum(produit_vente.`nombre_article`) AS produit_vente_nombre_article,
+     sum(produit.`quantite`) AS produit_quantite,
+     categories.`designation` AS categories_designation,
+     grandecategorie.`nom` AS grandecategorie_nom
+FROM
+     `grandecategorie` grandecategorie INNER JOIN `categories` categories ON grandecategorie.`idGrandeCategorie` = categories.`GrandeCategorie_idGrandeCategorie`
+     INNER JOIN `produit_categories` produit_categories ON categories.`idCategories` = produit_categories.`categoriesidCategories`
+     INNER JOIN `produit` produit ON produit_categories.`produitidProduit` = produit.`idProduit`
+     INNER JOIN `produit_vente` produit_vente ON produit.`idProduit` = produit_vente.`produitidProduit`
+     INNER JOIN `vente` vente ON produit_vente.`venteidVente` = vente.`idVente`
+WHERE
+     MONTH(vente.`date_de_vente`) LIKE $P{varMois}
+ AND YEAR(vente.`date_de_vente`) LIKE $P{varAnnee}
+GROUP BY
+     categories.`designation`,
+     grandecategorie.`nom`,
+     vente.`date_de_vente`
+ORDER BY
+     grandecategorie.`nom` ASC,
+     categories.`designation` ASC]]>
+	</queryString>
+	<field name="titre" class="java.lang.String"/>
+	<field name="slogan" class="java.lang.String"/>
+	<field name="periode" class="java.lang.String"/>
+	<field name="produit_vente_nombre_article" class="java.math.BigDecimal"/>
+	<field name="produit_quantite" class="java.math.BigDecimal"/>
+	<field name="categories_designation" class="java.lang.String"/>
+	<field name="grandecategorie_nom" class="java.lang.String"/>
+	<variable name="produit_quantite_1" class="java.math.BigDecimal" resetType="Group" resetGroup="grandecategorie_nom" calculation="Sum">
+		<variableExpression><![CDATA[$F{produit_quantite}]]></variableExpression>
+	</variable>
+	<group name="grandecategorie_nom">
+		<groupExpression><![CDATA[$F{grandecategorie_nom}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="169" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="a1703945-19cc-4a22-beb3-f9dad6974b8a"/>
+					<box>
+						<pen lineWidth="2.0"/>
+						<topPen lineWidth="2.0"/>
+						<leftPen lineWidth="2.0"/>
+						<bottomPen lineWidth="2.0"/>
+						<rightPen lineWidth="2.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Categorie]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="169" y="0" width="328" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="1ee46b4d-38c6-4d1f-9352-322a0ab9eb37"/>
+					<box>
+						<pen lineWidth="2.0"/>
+						<topPen lineWidth="2.0"/>
+						<leftPen lineWidth="2.0"/>
+						<bottomPen lineWidth="2.0"/>
+						<rightPen lineWidth="2.0"/>
+					</box>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{grandecategorie_nom}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="grandecategorie_nom" pattern="" isBlankWhenNull="false">
+					<reportElement mode="Opaque" x="497" y="0" width="58" height="33" forecolor="#006699" backcolor="#E6E6E6" uuid="9a1d35b5-5b3d-47e8-9174-5f314974305e"/>
+					<box>
+						<pen lineWidth="2.0"/>
+						<topPen lineWidth="2.0"/>
+						<leftPen lineWidth="2.0"/>
+						<bottomPen lineWidth="2.0"/>
+						<rightPen lineWidth="2.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="24" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{produit_quantite_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-23" width="595" height="95" backcolor="#006699" uuid="e6cb9689-8335-4571-892c-00d545d96ab5"/>
+				<image>
+					<reportElement x="517" y="0" width="78" height="77" uuid="c9fb2453-e40b-4bd7-afd0-99563d159b01"/>
+					<imageExpression><![CDATA["\\Documents\\Images\\logo.png"]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement x="291" y="75" width="304" height="20" forecolor="#FFFFFF" uuid="0d604cc6-d5b2-4694-a6dc-4fdb456c5f53"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{slogan}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="20" width="390" height="55" forecolor="#FFFFFF" uuid="87454ece-e016-47f6-a881-57e7e41ece90"/>
+					<textElement verticalAlignment="Middle">
+						<font size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[""+$F{titre}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="40">
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="23" forecolor="#006666" uuid="4de755a1-919f-4621-acf5-057705438e01"/>
+				<box>
+					<topPen lineWidth="3.0" lineColor="#990000"/>
+					<bottomPen lineWidth="3.0" lineColor="#990000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="10" width="555" height="23" forecolor="#006666" backcolor="#FFFFFF" uuid="52956d08-6926-4134-8b9d-0fdffd6ddaee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["BILAN DES VENTES  "+$F{periode}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="8a96e755-cc45-4735-ab4f-b98e9a67d8f9"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sous-Categorie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="9fdcbfea-6054-4805-a58a-46157d0c846a"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nbre d'article vendu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f6411c7c-2054-4b60-bbb7-e0082596d50c"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qte en stock]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="185" height="20" uuid="d390661a-7b28-4dd9-85ff-77af224cde27"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categories_designation}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="185" y="0" width="185" height="20" uuid="56d7b2cd-ab43-47e6-9c0b-14d13854b7aa"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produit_vente_nombre_article}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="370" y="0" width="185" height="20" uuid="7a2f9766-1e4b-4a95-bdbd-b6f11b691181"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produit_quantite}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="453a1b48-153e-4a27-9ec4-f5cb60e321ec"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="11a3f166-75e2-4426-bf2d-0c913d5ab080"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="309" height="13" uuid="1cb8673b-e0dd-4822-a862-923905b6392a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

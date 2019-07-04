@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="crud.Produit" table="produit" lazy="false">
+		<id name="idProduit" column="idProduit" type="integer" unsaved-value="0">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="designation" column="designation" type="string" length="45" not-null="true" lazy="false"/>
+		<property name="prix_unitaire_de_vente" column="prix_unitaire_de_vente" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="prix_d_achat" column="prix_d_achat" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="date_de_peremtion" column="date_de_peremtion" type="date" not-null="false" lazy="false"/>
+		<property name="quantite" column="quantite" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="code" column="code" type="string" length="300" not-null="true" lazy="false"/>
+		<property name="seuil_de_vente" column="seuil_de_vente" type="integer" length="11" not-null="true" lazy="false"/>
+		<set name="ORM_Fournisseuridfournisseur" table="fournisseur_produit" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="produitidProduit" not-null="true"/>
+			<many-to-many column="fournisseuridfournisseur" class="crud.Fournisseur">
+			</many-to-many>
+		</set>
+		<set name="ORM_CategoriesidCategories" table="produit_categories" lazy="true" cascade="save-update,lock">
+			<key column="produitidProduit" not-null="true"/>
+			<many-to-many column="categoriesidCategories" class="crud.Categories">
+			</many-to-many>
+		</set>
+		<set name="ORM_Produit_vente" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="produitidProduit" not-null="true"/>
+			<one-to-many class="crud.Produit_vente"/>
+		</set>
+	</class>
+</hibernate-mapping>

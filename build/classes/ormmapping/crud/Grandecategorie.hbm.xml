@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="crud.Grandecategorie" table="grandecategorie" lazy="false">
+		<id name="idGrandeCategorie" column="idGrandeCategorie" type="integer" unsaved-value="0">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="nom" column="nom" type="string" length="45" not-null="true" lazy="false"/>
+		<property name="description" column="description" type="string" length="300" not-null="false" lazy="false"/>
+		<set name="ORM_Categories" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="GrandeCategorie_idGrandeCategorie" not-null="true"/>
+			<one-to-many class="crud.Categories"/>
+		</set>
+	</class>
+</hibernate-mapping>

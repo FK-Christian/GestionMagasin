@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+   	<!-- properties -->
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/gestionmagasinbd</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">fossofodoup</property>
+		<property name="show_sql">false</property>
+		<property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
+		<!-- mapping files -->
+		<mapping resource="ormmapping/crud/Address.hbm.xml" />
+		<mapping resource="ormmapping/crud/Categories.hbm.xml" />
+		<mapping resource="ormmapping/crud/Charges.hbm.xml" />
+		<mapping resource="ormmapping/crud/Client.hbm.xml" />
+		<mapping resource="ormmapping/crud/Fournisseur.hbm.xml" />
+		<mapping resource="ormmapping/crud/Grandecategorie.hbm.xml" />
+		<mapping resource="ormmapping/crud/Produit.hbm.xml" />
+		<mapping resource="ormmapping/crud/Produit_vente.hbm.xml" />
+		<mapping resource="ormmapping/crud/Typeusers.hbm.xml" />
+		<mapping resource="ormmapping/crud/Usersrights.hbm.xml" />
+		<mapping resource="ormmapping/crud/Utilisateur.hbm.xml" />
+		<mapping resource="ormmapping/crud/Vente.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

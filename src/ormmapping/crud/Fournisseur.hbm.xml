@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="crud.Fournisseur" table="fournisseur" lazy="false">
+		<id name="idfournisseur" column="idfournisseur" type="integer" unsaved-value="0">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="nom" column="nom" index="addressidAddress_UNIQUE" type="string" length="45" not-null="true" lazy="false"/>
+		<many-to-one name="addressidAddress" cascade="lock" column="addressidAddress" index="addressidAddress_UNIQUE" class="crud.Address" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<set name="ORM_ProduitidProduit" table="fournisseur_produit" lazy="true" cascade="save-update,lock">
+			<key column="fournisseuridfournisseur" not-null="true"/>
+			<many-to-many column="produitidProduit" class="crud.Produit">
+			</many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

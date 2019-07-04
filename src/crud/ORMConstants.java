@@ -1,0 +1,69 @@
+/**
+ * "Visual Paradigm: DO NOT MODIFY THIS FILE!"
+ * 
+ * This is an automatic generated file. It will be regenerated every time 
+ * you generate persistence class.
+ * 
+ * Modifying its content may cause the program not work, or your work may lost.
+ */
+
+/**
+ * Licensee: 
+ * License Type: Evaluation
+ */
+package crud;
+
+public interface ORMConstants extends org.orm.util.ORMBaseConstants {
+	final int KEY_ADDRESS_CLIENT = -904100202;
+	
+	final int KEY_ADDRESS_FOURNISSEUR = -1716379978;
+	
+	final int KEY_ADDRESS_UTILISATEUR = -1113610344;
+	
+	final int KEY_CATEGORIES_GRANDECATEGORIE_IDGRANDECATEGORIE = 1551082207;
+	
+	final int KEY_CATEGORIES_PRODUITIDPRODUIT = -63212504;
+	
+	final int KEY_CLIENT_ADDRESSIDADDRESS = 1207160505;
+	
+	final int KEY_CLIENT_VENTE = -923283204;
+	
+	final int KEY_FOURNISSEUR_ADDRESSIDADDRESS = 1061559011;
+	
+	final int KEY_FOURNISSEUR_PRODUITIDPRODUIT = -627427709;
+	
+	final int KEY_GRANDECATEGORIE_CATEGORIES = 1629075613;
+	
+	final int KEY_PRODUIT_CATEGORIESIDCATEGORIES = -851176151;
+	
+	final int KEY_PRODUIT_FOURNISSEURIDFOURNISSEUR = 226597787;
+	
+	final int KEY_PRODUIT_PRODUIT_VENTE = -1192014844;
+	
+	final int KEY_PRODUIT_VENTE_PRODUITIDPRODUIT = 744105482;
+	
+	final int KEY_PRODUIT_VENTE_VENTEIDVENTE = 518159786;
+	
+	final int KEY_TYPEUSERS_USERSRIGHTSIDUSERSRIGHTS = 2027528854;
+	
+	final int KEY_TYPEUSERS_UTILISATEUR = 1025781682;
+	
+	final int KEY_USERSRIGHTS_TYPEUSERS = 1611373710;
+	
+	final int KEY_UTILISATEUR_ADDRESSIDADDRESS = -605867455;
+	
+	final int KEY_UTILISATEUR_TYPEUSERSIDTYPEUSERS = -1125177439;
+	
+	final int KEY_UTILISATEUR_VENTE = -1211936140;
+	
+	final int KEY_UTILISATEUR_VENTE1 = 1084685373;
+	
+	final int KEY_VENTE_CLIENTIDCLIENT = 296596352;
+	
+	final int KEY_VENTE_PRODUIT_VENTE = -1966624661;
+	
+	final int KEY_VENTE_USERSOLDEUR = 314756788;
+	
+	final int KEY_VENTE_UTILISATEURIDUSER = 1373693050;
+	
+}

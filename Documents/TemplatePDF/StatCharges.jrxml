@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StatCharges" language="groovy" pageWidth="193" pageHeight="802" columnWidth="193" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1f67af87-4f14-41d4-b2a2-9fe7e5da07b9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="varMois" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[5]]></defaultValueExpression>
+	</parameter>
+	<parameter name="varAnnee" class="java.lang.String">
+		<defaultValueExpression><![CDATA["2016"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     charges.`designation` AS charges_designation,
+     charges.`montant` AS charges_montant
+FROM
+     `charges` charges
+WHERE
+     charges.`prisEnCompte` = 1
+     and (charges.`type` = "oui"
+     or (charges.`type` = "non"
+     and MONTH(charges.`date`) = $P{varMois}
+     and YEAR(charges.`date`) = $P{varAnnee}))
+ORDER BY
+     charges.`date` DESC]]>
+	</queryString>
+	<field name="charges_designation" class="java.lang.String"/>
+	<field name="charges_montant" class="java.lang.Integer"/>
+	<variable name="Scharges" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{charges_montant}]]></variableExpression>
+	</variable>
+	<variable name="retourC" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{Scharges}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="113" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="686ca2a6-083b-4396-8a0e-a1f3f24b5f3b"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[charge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="113" y="0" width="80" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3cb48606-4e25-44c5-bde3-fd62c7002951"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="113" height="20" uuid="4381ba12-dd79-4128-b058-f427d2743021"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["    "+$F{charges_designation}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement x="113" y="0" width="80" height="20" uuid="9f7f4814-fee6-40bb-86ad-012f2d03dbec"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{charges_montant}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="37">
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="14" width="125" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="2b352064-683a-4675-bd29-715a09ca65b0"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[TOTAL des Charges]]></text>
+			</staticText>
+			<textField pattern=" #,##0   ">
+				<reportElement x="125" y="14" width="68" height="20" forecolor="#990000" backcolor="#FF6666" uuid="7b3ef350-3cfd-4785-b23c-31c6b38be94d"/>
+				<box>
+					<pen lineWidth="2.0" lineColor="#000000"/>
+					<topPen lineWidth="2.0" lineColor="#000000"/>
+					<leftPen lineWidth="2.0" lineColor="#000000"/>
+					<bottomPen lineWidth="2.0" lineColor="#000000"/>
+					<rightPen lineWidth="2.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Scharges}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

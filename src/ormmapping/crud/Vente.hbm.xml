@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="crud.Vente" table="vente" lazy="false">
+		<id name="idVente" column="idVente" type="integer" unsaved-value="0">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="prix_de_vente" column="prix_de_vente" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="date_de_vente" column="date_de_vente" type="timestamp" not-null="true" lazy="false"/>
+		<many-to-one name="clientidClient" cascade="lock" column="clientidClient" class="crud.Client" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="utilisateuridUser" cascade="lock" column="utilisateuridUser" class="crud.Utilisateur" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="etat" column="etat" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="tva" column="tva" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="benefices" column="benefices" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="montant_de_dette" column="montant_de_dette" type="integer" length="11" not-null="false" lazy="false"/>
+		<property name="date_de_solde" column="date_de_solde" type="timestamp" not-null="false" lazy="false"/>
+		<property name="type_enregistrement" column="type_enregistrement" type="string" length="5" not-null="true" lazy="false"/>
+		<property name="description" column="Description" type="string" length="500" not-null="false" lazy="false"/>
+		<many-to-one name="usersoldeur" cascade="lock" column="usersoldeur" index="fk_vente_utilisateur1_idx" class="crud.Utilisateur" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<set name="ORM_Produit_vente" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="venteidVente" not-null="true"/>
+			<one-to-many class="crud.Produit_vente"/>
+		</set>
+	</class>
+</hibernate-mapping>

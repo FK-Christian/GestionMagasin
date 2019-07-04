@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="crud.Utilisateur" table="utilisateur" lazy="false">
+		<id name="idUser" column="idUser" type="integer" unsaved-value="0">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="nom" column="nom" type="string" length="45" not-null="true" lazy="false"/>
+		<property name="prenom" column="prenom" type="string" length="45" not-null="true" lazy="false"/>
+		<property name="login" column="login" index="login_UNIQUE" type="string" length="45" not-null="true" lazy="false"/>
+		<property name="motdepass" column="motdepass" index="login_UNIQUE" type="string" length="130" not-null="true" lazy="false"/>
+		<property name="description" column="description" type="string" length="100" not-null="false" lazy="false"/>
+		<many-to-one name="typeusersidTypeUsers" cascade="lock" column="typeusersidTypeUsers" class="crud.Typeusers" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="addressidAddress" cascade="lock" column="addressidAddress" class="crud.Address" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<set name="ORM_Vente" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="utilisateuridUser" not-null="true"/>
+			<one-to-many class="crud.Vente"/>
+		</set>
+		<set name="ORM_Vente1" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="usersoldeur" not-null="false"/>
+			<one-to-many class="crud.Vente"/>
+		</set>
+	</class>
+</hibernate-mapping>

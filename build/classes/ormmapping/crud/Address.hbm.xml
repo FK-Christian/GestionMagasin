@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="crud.Address" table="address" lazy="false">
+		<id name="idAddress" column="idAddress" type="integer" unsaved-value="0">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="numtel" column="numtel" index="numtel_UNIQUE" type="string" length="45" not-null="false" lazy="false"/>
+		<property name="lieu_de_residense" column="lieu_de_residense" type="string" length="50" not-null="false" lazy="false"/>
+		<property name="email" column="email" type="string" length="45" not-null="false" lazy="false"/>
+		<property name="boitePostal" column="boitePostal" index="numtel_UNIQUE" type="string" length="45" not-null="false" lazy="false"/>
+		<property name="siteWeb" column="siteWeb" type="string" length="45" not-null="false" lazy="false"/>
+		<set name="ORM_Client" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="addressidAddress" not-null="true"/>
+			<one-to-many class="crud.Client"/>
+		</set>
+		<set name="ORM_Fournisseur" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="addressidAddress" not-null="true"/>
+			<one-to-many class="crud.Fournisseur"/>
+		</set>
+		<set name="ORM_Utilisateur" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="addressidAddress" not-null="true"/>
+			<one-to-many class="crud.Utilisateur"/>
+		</set>
+	</class>
+</hibernate-mapping>

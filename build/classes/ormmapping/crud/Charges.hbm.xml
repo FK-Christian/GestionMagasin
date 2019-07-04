@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="crud.Charges" table="charges" lazy="false">
+		<id name="idcharges" column="idcharges" type="integer" unsaved-value="0">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="designation" column="designation" type="string" length="45" not-null="true" lazy="false"/>
+		<property name="montant" column="montant" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="type" column="type" type="string" length="3" not-null="true" lazy="false"/>
+		<property name="date" column="`date`" type="date" not-null="true" lazy="false"/>
+		<property name="description" column="description" type="string" length="300" not-null="false" lazy="false"/>
+		<property name="prisEnCompte" column="prisEnCompte" type="boolean" length="1" not-null="true" lazy="false"/>
+	</class>
+</hibernate-mapping>

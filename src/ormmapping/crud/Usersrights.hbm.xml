@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="crud.Usersrights" table="usersrights" lazy="false">
+		<id name="idUsersRights" column="idUsersRights" type="integer" unsaved-value="0">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="creerUnUser" column="creerUnUser" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="modifierUnUsers" column="modifierUnUsers" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="supprimerUnUsers" column="supprimerUnUsers" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="vendre" column="vendre" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="modifierUneVente" column="modifierUneVente" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="supprimerUneVente" column="supprimerUneVente" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="enregistrerUnproduit" column="enregistrerUnproduit" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="modifierUnProduit" column="modifierUnProduit" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="supprimerUnProduit" column="supprimerUnProduit" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="voirLesStatistiques" column="voirLesStatistiques" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="consulterLesProduits" column="ConsulterLesProduits" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="ajouterUnfournisseur" column="AjouterUnfournisseur" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="modifierUnFournisseur" column="ModifierUnFournisseur" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="supprimerUnfournisseur" column="supprimerUnfournisseur" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="ajouterUneAddresse" column="ajouterUneAddresse" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="modifierUneAddresse" column="modifierUneAddresse" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="supprimerUneAddresse" column="supprimerUneAddresse" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="ajouterUneCategorie" column="ajouterUneCategorie" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="modifierUneCategorie" column="modifierUneCategorie" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="supprimerUneCategorie" column="supprimerUneCategorie" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="ajouterUnClient" column="ajouterUnClient" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="modifierUnClient" column="modifierUnClient" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="supprimerunClient" column="supprimerunClient" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="ajouterUneCharge" column="ajouterUneCharge" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="modifierUneCharge" column="modifierUneCharge" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="supprimerunecharge" column="supprimerunecharge" type="integer" length="11" not-null="true" lazy="false"/>
+		<property name="privilegeRoot" column="privilegeRoot" type="integer" length="11" not-null="true" lazy="false"/>
+		<set name="ORM_Typeusers" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="usersrightsidUsersRights" not-null="true"/>
+			<one-to-many class="crud.Typeusers"/>
+		</set>
+	</class>
+</hibernate-mapping>
